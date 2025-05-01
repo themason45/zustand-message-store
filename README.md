@@ -1,4 +1,10 @@
-# React + TypeScript + Vite
+# Simple Zustand message store
+
+## Messages library readme
+
+To see documentation of the library proper see [`./src/messages/README.md`](./src/messages/README.md).
+
+## Main redme
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
