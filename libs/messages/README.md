@@ -55,23 +55,24 @@ At the highest point in the app where messages are needed you can add the follow
 
 ```typescript jsx
 const myComponent = () => {
-      const messageStore = useCreateMessageStore();
-      // ...
-      
-      return <MessageStoreContext value={messageStore.current}>
-            <div>
-                <InnerComponent/>
-                {/*...*/}
-            </div>
-        </MessageStoreContext>
+    const messageStore = useCreateMessageStore();
+    // ...
+
+    return <MessageStoreContext value={messageStore.current}>
+        <div>
+            <InnerComponent/>
+            {/*...*/}
+        </div>
+    </MessageStoreContext>
 }
 ```
 
 ## Message types
 
 As mentioned before, there are two types of message:
- - Simple messages
- - Component messages
+
+- Simple messages
+- Component messages
 
 This section goes over, in detail, the two types, and provides examples on how best to use them:
 
@@ -92,6 +93,7 @@ Currently this limits the number of component messages with a given ID to just o
 is all that is required.
 
 In order to register the props we make use of Typescript's name-space system:
+
 ```typescript
 type TestMessageComponentProps = {
     text: string,
@@ -103,9 +105,12 @@ const TestMessageComponent = (props: TestMessageComponentProps) => {
 }
 
 // Register this component's props in the global registry
-declare global {
-    interface ComponentMessagePropTypes {
-        "test-message": MessageCompProps;
+import "@themason45/zustand-message-store"
+
+declare module "@themason45/zustand-message-store" {
+    // noinspection JSUnusedGlobalSymbols This is used by the message library
+    interface ComponentMessageRegistry {
+        "test-component-message": MessageCompProps;
     }
 }
 ```
@@ -116,7 +121,9 @@ and proper typing reducing the risk of errors.
 #### Component-based message example:
 
 An example making use of component-based messages assuming that a [`MessageContext`](src/store/MessageStoreContext.ts)
-has been provided above, and a [`MessageOutlet`](src/components/MessageOutlet.tsx) is present somewhere within that context:
+has been provided above, and a [`MessageOutlet`](src/components/MessageOutlet.tsx) is present somewhere within that
+context:
+
 ```typescript jsx
 type MessageCompProps = {
   name: string
@@ -128,9 +135,12 @@ const MessageComp: FunctionComponent<MessageCompProps> = ({name, counter}: Messa
 }
 
 // Register this component's props in the global registry
-declare global {
-  interface ComponentMessagePropTypes {
-    "test-message": MessageCompProps;
+import "@themason45/zustand-message-store"
+
+declare module "@themason45/zustand-message-store" {
+  // noinspection JSUnusedGlobalSymbols This is used by the message library
+  interface ComponentMessageRegistry {
+    "test-component-message": MessageCompProps;
   }
 }
 
