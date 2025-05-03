@@ -2,8 +2,8 @@
  * A message component to be rendered in the message stack
  */
 import {createElement} from "react";
-import {ComponentMessage, Message, MessageId, SimpleMessage} from "../types/message.ts";
-import {useMessageStore} from "../store/MessageStoreContext.ts";
+import {ComponentMessage, Message, MessageId, SimpleMessage} from "../types/message";
+import {useMessageStore} from "../store/MessageStoreContext";
 
 type MessageComponentProps<T extends Message> = {
     /**
@@ -30,7 +30,7 @@ const SimpleMessageComponent = ({message, handleClose}: MessageComponentProps<Si
             <p className={"text-lg font-bold"}>{message.title}</p>
             <button className={"px-1 p-0"} onClick={() => handleClose()}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                     fill="#e3e3e3">
+                     className={"fill-black dark:fill-white"}>
                     <path
                         d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
                 </svg>

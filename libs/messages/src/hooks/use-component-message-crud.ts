@@ -1,4 +1,4 @@
-import {useMessageStore} from "../store/MessageStoreContext.ts";
+import {useMessageStore} from "../store/MessageStoreContext";
 
 /**
  * A hook to provide CRUD operation functions

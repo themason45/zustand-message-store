@@ -1,6 +1,9 @@
+import {
+    MessageOutlet,
+    MessageStoreContext,
+    useCreateMessageStore
+} from '@themason45/zustand-message-store';
 import './App.css'
-import {MessageStoreContext, useCreateMessageStore} from "./messages/store/MessageStoreContext.ts";
-import {MessageOutlet} from "./messages/components/MessageOutlet.tsx";
 import {InnerComponent} from "./InnerComponent.tsx";
 
 function App() {

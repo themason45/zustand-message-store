@@ -1,0 +1,39 @@
+{
+  "name": "@themason45/zustand-message-store",
+  "version": "1.0.0",
+  "description": "A message store implementation using Zustand",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "lint": "eslint src --ext .ts,.tsx",
+    "prepublishOnly": "pnpm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/themason45/zustand-message-store.git"
+  },
+  "keywords": [
+    "zustand",
+    "state-management",
+    "messages",
+    "react"
+  ],
+  "author": "themason45",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "zustand": ">=5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "eslint": "^9.22.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.2"
+  }
+}

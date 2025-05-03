@@ -28,7 +28,7 @@ type MessageOutletProps = {
 }
 
 /**
- * An outlet to display messages to the user. Use this in conjunction with a MessageStoreContext in order
+ * An outlet to display messages to the user. Use this in conjunction with a MessageStoreContext
  * to send messages from different parts of the app.
  */
 export const MessageOutlet = ({maxMessages: _maxMessages, offsets, zIndex}: MessageOutletProps) => {
@@ -52,7 +52,7 @@ export const MessageOutlet = ({maxMessages: _maxMessages, offsets, zIndex}: Mess
         {(messages
             .slice(0, maxMessages)
             .map(id => <MessageComponent
-                key={id}
+                key={id as string}
                 messageID={id}
                 handleClose={() => removeMessage(id as unknown as MessageId)}/>
             ))}

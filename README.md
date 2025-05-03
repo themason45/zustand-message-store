@@ -2,7 +2,7 @@
 
 ## Messages library readme
 
-To see documentation of the library proper see [`./src/messages/README.md`](./src/messages/README.md).
+To see documentation of the library proper see [`./src/messages/README.md`](libs/messages/README.md).
 
 ## Main redme
 

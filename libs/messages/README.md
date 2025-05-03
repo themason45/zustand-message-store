@@ -29,17 +29,17 @@ The message model is split into two types:
 The rendering components provide a method in which to display the messages in a standard way.
 This makes use of the context and the store to display any existing messages within a given container.
 
-You can place the [`MessageOutlet`](./components/MessageOutlet.tsx) component at any point in the app as long
-as it has access to a [`MessageContext`](./store/MessageStoreContext.ts).
+You can place the [`MessageOutlet`](src/components/MessageOutlet.tsx) component at any point in the app as long
+as it has access to a [`MessageContext`](src/store/MessageStoreContext.ts).
 It is suggested to put this as high up in the DOM as possible as to maximise the coverage of the
-[`MessageContext`](./store/MessageStoreContext.ts).
+[`MessageContext`](src/store/MessageStoreContext.ts).
 
 ### The hooks
 
 To make using the message store easier, a set of hooks are provided for both types of message:
 
-- The [`useSimpleMessageCRUD`](./hooks/use-simple-message-crud.ts) provides CRUD operations for simple messages.
-- The [`useComponentMessageCRUD`](./hooks/use-component-message-crud.ts) provides CRUD operations for component based
+- The [`useSimpleMessageCRUD`](src/hooks/use-simple-message-crud.ts) provides CRUD operations for simple messages.
+- The [`useComponentMessageCRUD`](src/hooks/use-component-message-crud.ts) provides CRUD operations for component based
   messages.
 
 These can be used in order to simplify interaction with the message store, and reduce the reliance on using
@@ -115,8 +115,8 @@ and proper typing reducing the risk of errors.
 
 #### Component-based message example:
 
-An example making use of component-based messages assuming that a [`MessageContext`](./store/MessageStoreContext.ts)
-has been provided above, and a [`MessageOutlet`](./components/MessageOutlet.tsx) is present somewhere within that context:
+An example making use of component-based messages assuming that a [`MessageContext`](src/store/MessageStoreContext.ts)
+has been provided above, and a [`MessageOutlet`](src/components/MessageOutlet.tsx) is present somewhere within that context:
 ```typescript jsx
 type MessageCompProps = {
   name: string

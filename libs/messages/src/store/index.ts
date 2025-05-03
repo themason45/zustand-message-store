@@ -1,10 +1,11 @@
 import {create} from "zustand";
 import {ComponentMessage, Message, MessageId, SimpleMessage} from "../types/message";
 import moment from "moment";
+import {BaseComponentMessageRegistry, ComponentMessageRegistry} from "../types";
 
 type ChangeableMessage<M extends Message> = Omit<M, 'id' | 'type' | 'createdAt' | 'lastUpdatedAt'>
 
-export type MessageStoreType = {
+export type MessageStoreType<CMPR extends BaseComponentMessageRegistry = ComponentMessageRegistry> = {
     /**
      * The stack of current messages
      */
@@ -18,9 +19,9 @@ export type MessageStoreType = {
      * Push a new component message onto the stack
      * @param message The message to push
      */
-    pushComponentMessage: <K extends keyof ComponentMessagePropTypes>(
+    pushComponentMessage: <K extends keyof CMPR>(
         id: K,
-        args: ChangeableMessage<ComponentMessage<K>>) => void
+        args: ChangeableMessage<ComponentMessage<CMPR, K>>) => void
     /**
      * Get a message by its ID
      * @param id The ID of the message to get
@@ -36,14 +37,13 @@ export type MessageStoreType = {
      * Updates the props of a specified component message in the stack.
      *
      */
-    updateComponentMessage: <K extends keyof ComponentMessagePropTypes>(
+    updateComponentMessage: <K extends keyof CMPR>(
         id: K,
-        mutator: (current: ComponentMessagePropTypes[K]) => Partial<ComponentMessagePropTypes[K]>) => void
+        mutator: (current: CMPR[K]) => Partial<CMPR[K]>) => void
     /**
      * Remove a specified message from the stack
      */
-    removeMessage: (message: Message['id']) => void
-
+    removeMessage: (message: MessageId | keyof CMPR) => void
 }
 
 // Actions
@@ -57,7 +57,7 @@ export type MessageStoreType = {
 /**
  * Creates a new message store
  */
-export const createMessageStore = () => {
+export const createMessageStore = <CMPR extends BaseComponentMessageRegistry = ComponentMessageRegistry>() => {
     return create<MessageStoreType>((set, get) => ({
         messages: new Map<MessageId, Message>(),
         pushSimpleMessage: (id, args) => set((s) => {
@@ -76,9 +76,9 @@ export const createMessageStore = () => {
                 messages: messages
             }
         }),
-        pushComponentMessage: <K extends keyof ComponentMessagePropTypes>(
+        pushComponentMessage: <K extends keyof CMPR>(
             id: K,
-            args: ChangeableMessage<ComponentMessage<K>>
+            args: ChangeableMessage<ComponentMessage<CMPR, K>>
         ) => set((s) => {
             const newMessage: ComponentMessage = {
                 id,
@@ -114,7 +114,10 @@ export const createMessageStore = () => {
                 messages: messages
             }
         }),
-        updateComponentMessage: (id, mutator) => set((s) => {
+        updateComponentMessage: <K extends keyof CMPR>(
+            id: K,
+            mutator: (current: CMPR[K]) => Partial<CMPR[K]>
+        ) => set((s) => {
             const message = s.messages.get(id as MessageId);
             if (!message || message.type !== 'component') {
                 return s;
