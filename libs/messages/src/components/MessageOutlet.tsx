@@ -2,7 +2,7 @@
  * Provides an outlet for messages to be displayed
  */
 import {useMessageStore, useMessageStoreWithEqualityFunction} from "../store/MessageStoreContext";
-import {useId} from "react";
+import {HTMLAttributes, useId} from "react";
 import {MessageComponent} from "./MessageComponent";
 import {MessageId} from "../types/message";
 import {shallow} from "zustand/vanilla/shallow";
@@ -24,14 +24,15 @@ type MessageOutletProps = {
     /**
      * The z-index of the `MessageOutlet` and hence all messages it displays
      */
-    zIndex: number
+    zIndex: number,
+    messageClassName?: Pick<HTMLAttributes<HTMLDivElement>, "className">
 }
 
 /**
  * An outlet to display messages to the user. Use this in conjunction with a MessageStoreContext
  * to send messages from different parts of the app.
  */
-export const MessageOutlet = ({maxMessages: _maxMessages, offsets, zIndex}: MessageOutletProps) => {
+export const MessageOutlet = ({maxMessages: _maxMessages, offsets, zIndex, messageClassName}: MessageOutletProps) => {
     const maxMessages = _maxMessages || 3;
     // A random ID for this message outlet
     const outletId = useId();
@@ -54,6 +55,7 @@ export const MessageOutlet = ({maxMessages: _maxMessages, offsets, zIndex}: Mess
             .map(id => <MessageComponent
                 key={id as string}
                 messageID={id}
+                className={messageClassName as string}
                 handleClose={() => removeMessage(id as unknown as MessageId)}/>
             ))}
     </div>

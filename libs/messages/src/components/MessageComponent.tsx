@@ -1,7 +1,7 @@
 /**
  * A message component to be rendered in the message stack
  */
-import {createElement} from "react";
+import {createElement, HTMLAttributes} from "react";
 import {ComponentMessage, Message, MessageId, SimpleMessage} from "../types/message";
 import {useMessageStore} from "../store/MessageStoreContext";
 
@@ -54,25 +54,25 @@ const ComponentMessageComponent = ({message}: MessageComponentProps<ComponentMes
 /**
  * A component which displays a message, to be used in the message stack.
  */
-export const MessageComponent = ({messageID, handleClose}: { messageID: MessageId, handleClose: () => void }) => {
+export const MessageComponent = ({messageID, handleClose, className}: {
+    messageID: MessageId,
+    handleClose: () => void
+} & HTMLAttributes<HTMLDivElement>) => {
     const message = useMessageStore(state => {
-        console.log(state.messages.get(messageID)?.lastUpdatedAt)
         return state.messages.get(messageID)
     })
 
     if (!message) return <></>
 
-    return <div className={"p-4 bg-gray-200 dark:bg-gray-800 rounded-lg border border-black"}>
-        <div>
-            {/* Create a message if it is a string-based one */}
-            {message.type == "simple" &&
-                <SimpleMessageComponent message={message} handleClose={handleClose}/>
-            }
-            {/* Render the message if it is a component-based one */}
-            {message.type == "component" &&
-                // Message is a component
-                <ComponentMessageComponent message={message} handleClose={handleClose}/>
-            }
-        </div>
+    return <div className={className}>
+        {/* Create a message if it is a string-based one */}
+        {message.type == "simple" &&
+            <SimpleMessageComponent message={message} handleClose={handleClose}/>
+        }
+        {/* Render the message if it is a component-based one */}
+        {message.type == "component" &&
+            // Message is a component
+            <ComponentMessageComponent message={message} handleClose={handleClose}/>
+        }
     </div>
 }

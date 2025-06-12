@@ -7,5 +7,6 @@ export {useSimpleMessageCRUD} from "./hooks/use-simple-message-crud"
 
 export {MessageOutlet} from "./components/MessageOutlet"
 export * from "./store/MessageStoreContext"
+export {createMessageStore} from "./store"
 
 export type * from "./types"
