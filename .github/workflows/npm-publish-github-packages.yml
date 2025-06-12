@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-        working-directory: libs
+        working-directory: libs/messages
 
   publish-gpr:
     needs: build
@@ -32,8 +32,8 @@ jobs:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
-        working-directory: libs
+        working-directory: libs/messages
       - run: npm publish
-        working-directory: libs
+        working-directory: libs/messages
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
