@@ -1,5 +1,5 @@
 {
-  "name": "@themason45/zustand-message-store",
+  "name": "@tmas45/zustand-message-store",
   "version": "1.0.0",
   "description": "A message store implementation using Zustand",
   "main": "dist/index.js",
